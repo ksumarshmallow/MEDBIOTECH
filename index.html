@@ -3,21 +3,185 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEDBIOTECH</title>
+    <title>iPHARMA</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> 
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-    <header class="bg-primary text-white text-center py-3">
-        <h1>MEDBIOTECH</h1>
-    </header>
-
-    <div class="container mt-4">
-        <p>Здесь будет контент</p>
+<header class="container text-center">
+    <div class="d-flex justify-content-between align-items-center">
+        <img src="img/logo.png" alt="Logo" class="img-fluid" style="max-height: 50px;">
     </div>
+</header>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="script.js"></script>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Block with filters -->
+        <div class="col-md-4">
+            <div class="filters-container">
+                <h2>Фильтры</h2>
+                <form>
+                    <button type="button" class="btn btn-custom" id="apply-button">Применить</button>
+                    <button type="reset" class="btn btn-custom" id="reset-button">Сбросить все</button>
+
+                    <!-- Date filter -->
+                    <!-- Фильтр дат -->
+                    <h3 class="mt-4 d-flex justify-content-between align-items-center">
+                        Дата отзывов
+                        <span class="toggle-arrow"><i class="fas fa-chevron-down"></i></span>
+                    </h3>
+                    <div class="date-filter">
+                        <div class="range-container">
+                            <input type="range" class="form-range" id="range-min" min="2000" max="2025" value="2000">
+                            <input type="range" class="form-range" id="range-max" min="2000" max="2025" value="2025">
+                        </div>
+                        <p class="selected-range">С 2000 по 2025 год</p>
+                    </div>
+
+                    <h3 class="mt-4 d-flex justify-content-between align-items-center">
+                        Лекарственный препарат
+                        <span class="toggle-arrow"><i class="fas fa-chevron-down"></i></span>
+                    </h3>
+                    <div class="checkbox-group">
+                        <div class="form-check">
+                            <input type="checkbox" id="med1" class="form-check-input">
+                            <label class="form-check-label" for="med1">Авиандр</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="med2" class="form-check-input">
+                            <label class="form-check-label" for="med2">Радия-223 хлорид</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="med3" class="form-check-input">
+                            <label class="form-check-label" for="med3">Эсциталопрам</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" id="med4" class="form-check-input">
+                            <label class="form-check-label" for="med4">Алимемазин и синонимы</label>
+                        </div>
+                    
+                        <div class="hidden-options" style="display: none;">
+                            <div class="form-check">
+                                <input type="checkbox" id="med5" class="form-check-input">
+                                <label class="form-check-label" for="med5">Афобазол</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="med6" class="form-check-input">
+                                <label class="form-check-label" for="med6">Андипал</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="med7" class="form-check-input">
+                                <label class="form-check-label" for="med7">Баета</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="med8" class="form-check-input">
+                                <label class="form-check-label" for="med8">Нейромексол </label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="med9" class="form-check-input">
+                                <label class="form-check-label" for="med9">Инозин Пранобекс</label>
+                            </div>
+                        </div>
+                    
+                        <button type="button" class="btn-show-more">
+                            Еще
+                        </button>
+                    </div>
+
+                    <!-- Resource -->
+                    <h3 class="mt-4 d-flex justify-content-between align-items-center">
+                        Источник
+                        <span class="toggle-arrow"><i class="fas fa-chevron-down"></i></span>
+                    </h3>
+                    <div class="checkbox-group">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input orange-checkbox" id="src1">
+                            <label class="form-check-label" for="src1">Все источники</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input orange-checkbox" id="src2">
+                            <label class="form-check-label" for="src2">Отзовик</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input orange-checkbox" id="src3">
+                            <label class="form-check-label" for="src3">ВК</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input orange-checkbox" id="src4">
+                            <label class="form-check-label" for="src4">YouTube</label>
+                        </div>
+
+                        <div class="hidden-options" style="display: none;">
+                            <div class="form-check">
+                                <input type="checkbox" id="source1" class="form-check-input">
+                                <label class="form-check-label" for="source1">Какой-то форум</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="source2" class="form-check-input">
+                                <label class="form-check-label" for="source2">1000 рецептов</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="source3" class="form-check-input">
+                                <label class="form-check-label" for="source3">4ch</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" id="source4" class="form-check-input">
+                                <label class="form-check-label" for="source4">Москва сегодня</label>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn-show-more">
+                            Еще
+                        </button>
+
+                    </div>
+
+                    <!-- Categories of reactions -->
+                    <h3 class="mt-4 d-flex justify-content-between align-items-center">
+                        Категории нежелательных реакций
+                        <span class="toggle-arrow"><i class="fas fa-chevron-down"></i></span>
+                    </h3>
+                    <div class="checkbox-group">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input orange-checkbox" id="nr1">
+                            <label class="form-check-label" for="nr1">Все HP</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input orange-checkbox" id="nr2">
+                            <label class="form-check-label" for="nr2">Заболевания сердца</label>
+                        </div>
+
+                        <button type="button" class="btn-show-more">
+                            Еще
+                        </button>
+                    
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Block with search results -->
+        <div class="col-md-8">
+            <h2>Результаты</h2>
+            <div id="applied-filters" class="mb-4">
+                <p><strong>Применённые фильтры:</strong></p>
+                <ul>
+                    <li>Лекарства: Препарат 1, Препарат 3</li>
+                    <li>Категории: Категория 1</li>
+                </ul>
+            </div>
+            <div id="search-results">
+                <p>Загрузка результатов</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="script.js"></script>
 </body>
 </html>

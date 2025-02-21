@@ -1,0 +1,221 @@
+/* Общий стиль для белых блоков */
+header, .filters-container {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+/* Заголовки */
+h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+/* Кнопки */
+button.btn-custom {
+    width: 140px;
+    height: 30px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19.36px;
+    background: white;
+    border-radius: 15px;
+    padding: 4px 12px;
+    border: 2px solid #B9B9B9;
+    color: #B9B9B9;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+button.btn-custom:active {
+    background: #F0FFF4;
+    border: 2px solid #D9D9D9;
+    color: #F54C16;
+}
+
+button.btn-custom:hover {
+    background: #F54C16;
+    border-color: #F54C16;
+    color: white;
+}
+
+button.btn-custom:focus {
+    outline: none;
+}
+
+/* Ползунок */
+input[type="range"] {
+    accent-color: #F54C16;
+    width: 100%;
+}
+
+/* Чекбоксы */
+input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border: 2px solid #B9B9B9;
+    background-color: white;
+    appearance: none;
+    cursor: pointer;
+    border-radius: 4px;
+    display: inline-block;
+    position: relative;
+    transition: box-shadow 0.2s ease-in-out;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #F54C16;
+    border-color: #F54C16;
+    box-shadow: 0 0 5px rgba(245, 76, 22, 0.8);
+}
+
+input[type="checkbox"]:focus {
+    outline: none;
+    box-shadow: 0 0 8px rgba(245, 76, 22, 1);
+}
+
+/* Стили для заголовка */
+h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.toggle-arrow i {
+    transition: transform 0.3s ease;
+}
+
+.toggle-arrow.rotated i {
+    transform: rotate(180deg);
+}
+
+/* Стили для чекбоксов */
+.form-check {
+    margin-bottom: 8px;
+}
+
+.form-check-label {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Стили для кнопки "Еще" */
+.btn-show-more {
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #B9B9B9;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    padding: 0;
+    transition: color 0.3s ease;
+}
+
+.btn-show-more:hover {
+    color: #B9B9B9;
+    text-decoration: underline;
+}
+
+/* Результаты */
+#search-results {
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* -------------------------------------------- */
+/* ФИЛЬТР ДАТ */
+/* -------------------------------------------- */
+
+/* Стили для фильтра дат */
+.date-filter {
+    margin-top: 10px;
+}
+
+.range-container {
+    position: relative;
+    height: 20px;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #EFEDED;
+    border-radius: 5px;
+    outline: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Стили для ползунков (кружков) */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 2px solid #B9B9B9;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 2px solid #B9B9B9;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Оранжевый цвет для выбранного диапазона */
+input[type="range"]::-webkit-slider-runnable-track {
+    background: #EFEDED;
+}
+
+input[type="range"]::-moz-range-track {
+    background: #EFEDED;
+}
+
+input[type="range"]:focus {
+    outline: none;
+}
+
+/* Оранжевый цвет для выбранного диапазона */
+input[type="range"]::-webkit-slider-thumb:active,
+input[type="range"]::-moz-range-thumb:active {
+    border-color: #F54C16;
+}
+
+/* Отображение выбранного диапазона */
+.selected-range {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #B9B9B9;
+}

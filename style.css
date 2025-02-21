@@ -58,12 +58,6 @@ button.btn-custom:focus {
     outline: none;
 }
 
-/* Ползунок */
-input[type="range"] {
-    accent-color: #F54C16;
-    width: 100%;
-}
-
 /* Чекбоксы */
 input[type="checkbox"] {
     width: 18px;
@@ -148,74 +142,74 @@ h3 {
 
 /* -------------------------------------------- */
 /* ФИЛЬТР ДАТ */
-/* -------------------------------------------- */
+/* -------------------------------------------- 
+/* Стили для noUiSlider */
+.noUi-target {
+    height: 10px; /* Высота трека */
+    width: 95%;
+    margin: 0 auto;
+    background: #EFEDED; /* Серый фон для трека */
+    border-radius: 5px; /* Скругление углов */
+    border: none; /* Убираем границу */
+    box-shadow: none; /* Убираем тень */
+}
+
+.noUi-connect {
+    background: #F54C16; /* Оранжевый цвет для активного диапазона */
+    height: 10px; /* Высота активного диапазона */
+    border-radius: 5px; /* Скругление углов */
+}
+
+/* Скрываем стандартные кружки */
+.noUi-handle {
+    width: 0; /* Убираем ширину */
+    height: 0; /* Убираем высоту */
+    background: transparent; /* Прозрачный фон */
+    border: none; /* Убираем границу */
+    box-shadow: none; /* Убираем тень */
+}
+
+/* Создаём свои кружки */
+.noUi-handle::before {
+    content: '';
+    position: absolute;
+    width: 20px; /* Размер кружка */
+    height: 20px; /* Размер кружка */
+    background: white;
+    border: 2px solid #B9B9B9;
+    border-radius: 70%;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Центрирование */
+    cursor: pointer; /* Курсор-указатель */
+}
+
+.noUi-handle::after {
+    display: none; /* Скрываем второй псевдоэлемент (если не нужен) */
+}
+
+.noUi-handle:active::before {
+    border-color: #F54C16; /* Оранжевый бордюр при активном состоянии */
+}
 
 /* Стили для фильтра дат */
 .date-filter {
     margin-top: 10px;
 }
 
-.range-container {
-    position: relative;
-    height: 20px;
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
 }
 
-input[type="range"] {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 8px;
-    background: #EFEDED;
+.date-input {
+    width: 45%;
+    padding: 5px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    border: 2px solid #B9B9B9;
     border-radius: 5px;
-    outline: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-/* Стили для ползунков (кружков) */
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 20px;
-    height: 20px;
-    background: white;
-    border: 2px solid #B9B9B9;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-input[type="range"]::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: white;
-    border: 2px solid #B9B9B9;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-/* Оранжевый цвет для выбранного диапазона */
-input[type="range"]::-webkit-slider-runnable-track {
-    background: #EFEDED;
-}
-
-input[type="range"]::-moz-range-track {
-    background: #EFEDED;
-}
-
-input[type="range"]:focus {
-    outline: none;
-}
-
-/* Оранжевый цвет для выбранного диапазона */
-input[type="range"]::-webkit-slider-thumb:active,
-input[type="range"]::-moz-range-thumb:active {
-    border-color: #F54C16;
-}
-
-/* Отображение выбранного диапазона */
-.selected-range {
-    margin-top: 10px;
     font-size: 14px;
-    color: #B9B9B9;
+    text-align: center;
 }

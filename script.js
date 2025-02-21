@@ -41,58 +41,46 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
-
-
 document.addEventListener('DOMContentLoaded', function () {
-    // Логика для скрытия/показа фильтра дат
-    const toggleArrowDate = document.querySelector('.date-filter .toggle-arrow');
-    const dateFilter = document.querySelector('.date-filter');
+    const rangeSlider = document.getElementById('range-slider');
+    const inputMin = document.getElementById('input-min');
+    const inputMax = document.getElementById('input-max');
 
-    if (toggleArrowDate && dateFilter) {
-        toggleArrowDate.addEventListener('click', () => {
-            const icon = toggleArrowDate.querySelector('i');
+    // Инициализация noUiSlider
+    noUiSlider.create(rangeSlider, {
+        start: [2000, 2025], // Начальные значения
+        connect: true, // Оранжевая полоса между ползунками
+        range: {
+            'min': 2000,
+            'max': 2025
+        },
+        step: 1 // Шаг
+    });
 
-            if (dateFilter.style.display === 'none') {
-                dateFilter.style.display = 'block';
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-up');
-            } else {
-                dateFilter.style.display = 'none';
-                icon.classList.remove('fa-chevron-up');
-                icon.classList.add('fa-chevron-down');
-            }
-        });
-    }
+    // Обновление текстовых полей при изменении ползунков
+    rangeSlider.noUiSlider.on('update', (values) => {
+        inputMin.value = Math.round(values[0]);
+        inputMax.value = Math.round(values[1]);
+    });
 
-    // Логика для выбора диапазона дат
-    const rangeMin = document.getElementById('range-min');
-    const rangeMax = document.getElementById('range-max');
-    const selectedRange = document.querySelector('.selected-range');
+    // Обновление ползунков при изменении текстовых полей
+    inputMin.addEventListener('input', () => {
+        const min = parseInt(inputMin.value);
+        const max = parseInt(inputMax.value);
 
-    if (rangeMin && rangeMax && selectedRange) {
-        // Функция для обновления текста диапазона
-        const updateRangeText = () => {
-            const min = rangeMin.value;
-            const max = rangeMax.value;
-            selectedRange.textContent = `с ${min} по ${max} год`;
-        };
+        if (min > max) {
+            inputMin.value = max; // Корректируем, если min > max
+        }
+        rangeSlider.noUiSlider.set([min, null]);
+    });
 
-        // Обработчики событий для ползунков
-        rangeMin.addEventListener('input', () => {
-            if (parseInt(rangeMin.value) > parseInt(rangeMax.value)) {
-                rangeMin.value = rangeMax.value;
-            }
-            updateRangeText();
-        });
+    inputMax.addEventListener('input', () => {
+        const min = parseInt(inputMin.value);
+        const max = parseInt(inputMax.value);
 
-        rangeMax.addEventListener('input', () => {
-            if (parseInt(rangeMax.value) < parseInt(rangeMin.value)) {
-                rangeMax.value = rangeMin.value;
-            }
-            updateRangeText();
-        });
-
-        // Инициализация текста диапазона
-        updateRangeText();
-    }
+        if (max < min) {
+            inputMax.value = min; // Корректируем, если max < min
+        }
+        rangeSlider.noUiSlider.set([null, max]);
+    });
 });

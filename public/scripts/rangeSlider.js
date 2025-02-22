@@ -49,6 +49,25 @@ export function initializeRangeSlider() {
         }
     };
 
+    // текстовый вводы (enter)
+    const handleInput = (input, isMin) => {
+        input.addEventListener('blur', () => validateInput(input, isMin));
+        input.addEventListener('input', (e) => {
+            if (e.inputType === "insertText" || e.inputType === "deleteContentBackward") {
+                return;
+            }
+            validateInput(input, isMin);
+        });
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                validateInput(input, isMin);
+            }
+        });
+    };
+
+    handleInput(inputMin, true);
+    handleInput(inputMax, false);
+
     inputMin.addEventListener('blur', () => validateInput(inputMin, true));
     inputMax.addEventListener('blur', () => validateInput(inputMax, false));
 

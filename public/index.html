@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -197,16 +198,63 @@
                 <div id="search-results-dropdown" class="dropdown-results"></div>
             </div>
 
+            <!-- Графички -->
+            <div id="charts">
+                <h2 class="results-title">Результаты</h2>
+
+                <div class="chart-block">
+                    <h3>Общие сведения</h3>
+                    <div id="general-stats" class="d-flex gap-3">
+                        <!-- Левое окошко: Отзывы и источники -->
+                        <div class="stats-box p-3" style="background-color: #B9B9B9; border-radius: 8px; flex: 1;">
+                            <p class="mb-1">Всего отзывов</p>
+                            <p class="display-4 fw-bold mb-1"><span id="total-reviews">0</span></p>
+                            <p class="mb-0">из <span id="total-sources">0</span> источников</p>
+                        </div>
+                    
+                        <!-- Правое окошко: Симптомы и категории НР -->
+                        <div class="stats-box p-3" style="background-color: #B9B9B9; border-radius: 8px; flex: 1;">
+                            <p class="mb-1">Всего симптомов</p>
+                            <p class="display-4 fw-bold mb-1"><span id="total-symptoms">0</span></p>
+                            <p class="mb-0">из <span id="total-categories">0</span> категорий</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-block">
+                    <h3>Распространенность НР</h3>
+                    <div class="chart-container">
+                        <!-- Круговая диаграмма -->
+                        <div class="chart-left">
+                            <canvas id="nr-chart"></canvas>
+                        </div>
+                    
+                        <!-- Список категорий -->
+                        <div class="chart-right">
+                            <h4>Категории НР</h4>
+                            <ul id="nr-categories-list"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-block" id="sources-chart-block">
+                    <h3>Источники сбора отзывов</h3>
+                    <canvas id="sources-chart"></canvas>
+                </div>
+                <div class="chart-block">
+                    <h3>Отзывы по шкале времени</h3>
+                    <canvas id="timeline-chart"></canvas>
+                </div>
+            </div>
+
             <!-- Результаты поиска -->
-            <div id="search-results">
-                <p>Загрузка результатов</p>
+            <!-- <div id="search-results">
+                <p>Загрузка результатов</p> -->
                 <!-- Блок для статистики -->
-                <div id="results-summary">
+                <!-- <div id="results-summary">
                     <p>Всего отзывов: <span id="total-reviews">0</span></p>
                     <p>Всего симптомов: <span id="total-symptoms">0</span></p>
-                </div>
+                </div> -->
                 <!-- Таблица для отзывов -->
-                <table id="reviews-table" class="table">
+                <!-- <table id="reviews-table" class="table">
                     <thead>
                         <tr>
                             <th>Лекарство</th>
@@ -214,11 +262,11 @@
                             <th>НР</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody> -->
                         <!-- Строки будут добавляться с помощью JavaScript -->
-                    </tbody>
-                </table>
-            </div>
+                    <!-- </tbody>
+                </table> -->
+            <!-- </div> -->
         </div>
     </div>
 </div>

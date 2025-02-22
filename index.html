@@ -7,8 +7,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@5.10.0/dist/css/coreui.min.css" rel="stylesheet"> -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/@coreui/coreui-pro@5.10.0/dist/js/coreui.bundle.min.js"></script> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
     <link rel="stylesheet" href="style.css">
@@ -29,7 +27,7 @@
             <div class="filters-container">
                 <h2>Фильтры</h2>
                 <form>
-                    <button type="button" class="btn btn-custom" id="apply-button">Применить</button>
+                    <button type="button" class="btn btn-custom  btn-orange" id="apply-button">Применить</button>
                     <button type="reset" class="btn btn-custom" id="reset-button">Сбросить все</button>
 
                     <!-- Date filter -->
@@ -52,42 +50,43 @@
                     </h3>
                     <div class="checkbox-group">
                         <div class="form-check">
-                            <input type="checkbox" id="med1" class="form-check-input">
-                            <label class="form-check-label" for="med1">Авиандр</label>
+                            <input type="checkbox" id="Авиандр" class="form-check-input">
+                            <label class="form-check-label" for="Авиандр">Авиандр</label>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" id="med2" class="form-check-input">
-                            <label class="form-check-label" for="med2">Радия-223 хлорид</label>
+                            <input type="checkbox" id="Алимемазин и синонимы" class="form-check-input">
+                            <label class="form-check-label" for="Алимемазин и синонимы">Алимемазин и синонимы</label>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" id="med3" class="form-check-input">
-                            <label class="form-check-label" for="med3">Эсциталопрам</label>
+                            <input type="checkbox" id="Андипал" class="form-check-input">
+                            <label class="form-check-label" for="Андипал">Андипал</label>
                         </div>
                         <div class="form-check">
-                            <input type="checkbox" id="med4" class="form-check-input">
-                            <label class="form-check-label" for="med4">Алимемазин и синонимы</label>
+                            <input type="checkbox" id="Афобазол" class="form-check-input">
+                            <label class="form-check-label" for="Афобазол">Афобазол</label>
                         </div>
-                    
+                                            
                         <div class="hidden-options" style="display: none;">
+                            
                             <div class="form-check">
-                                <input type="checkbox" id="med5" class="form-check-input">
-                                <label class="form-check-label" for="med5">Афобазол</label>
+                                <input type="checkbox" id="Баета" class="form-check-input">
+                                <label class="form-check-label" for="Баета">Баета</label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" id="med6" class="form-check-input">
-                                <label class="form-check-label" for="med6">Андипал</label>
+                                <input type="checkbox" id="Инозин Пранобекс" class="form-check-input">
+                                <label class="form-check-label" for="Инозин Пранобекс">Инозин Пранобекс</label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" id="med7" class="form-check-input">
-                                <label class="form-check-label" for="med7">Баета</label>
+                                <input type="checkbox" id="Нейромексол" class="form-check-input">
+                                <label class="form-check-label" for="Нейромексол">Нейромексол </label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" id="med8" class="form-check-input">
-                                <label class="form-check-label" for="med8">Нейромексол </label>
+                                <input type="checkbox" id="Радия-223 хлорид" class="form-check-input">
+                                <label class="form-check-label" for="Радия-223 хлорид">Радия-223 хлорид</label>
                             </div>
                             <div class="form-check">
-                                <input type="checkbox" id="med9" class="form-check-input">
-                                <label class="form-check-label" for="med9">Инозин Пранобекс</label>
+                                <input type="checkbox" id="Эсциталопрам" class="form-check-input">
+                                <label class="form-check-label" for="Эсциталопрам">Эсциталопрам</label>
                             </div>
                         </div>
                     
@@ -170,14 +169,28 @@
 
         <!-- Block with search results -->
         <div class="col-md-8">
-            <h2>Результаты</h2>
+            <!-- Search window -->
+            <div class="search-bar mb-4">
+                <div class="input-group">
+                    <span class="input-group-text bg-transparent border-0">
+                        <i class="fas fa-search"></i> <!-- залупа -->
+                    </span>
+                    <div id="search-input" class="form-control search-input" contenteditable="true" placeholder="Поиск лекарственных средств"></div>
+                    <!-- <input type="text" id="search-input" class="form-control" placeholder="Поиск лекарственных средств" aria-label="Поиск"> -->
+                </div>
+                <!-- Dropdown list -->
+                <div id="search-results-dropdown" class="dropdown-results"></div>
+            </div>
+
+            <!-- Applied filters -->
             <div id="applied-filters" class="mb-4">
-                <p><strong>Применённые фильтры:</strong></p>
-                <ul>
-                    <li>Лекарства: Препарат 1, Препарат 3</li>
-                    <li>Категории: Категория 1</li>
+                <p><strong>Примененные фильтры:</strong></p>
+                <ul id="applied-filters-list">
+                    <!-- Здесь будут отображаться выбранные лекарства -->
                 </ul>
             </div>
+
+            <!-- Результаты поиска -->
             <div id="search-results">
                 <p>Загрузка результатов</p>
             </div>

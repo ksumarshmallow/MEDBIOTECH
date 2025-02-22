@@ -58,6 +58,24 @@ button.btn-custom:focus {
     outline: none;
 }
 
+/* Стили для оранжевой кнопки */
+button.btn-custom.btn-orange {
+    background: #F54C16; /* Оранжевый фон */
+    border-color: #F54C16; /* Оранжевая граница */
+    color: white; /* Белый текст */
+}
+
+button.btn-custom.btn-orange:hover {
+    background: #e04112; /* Темнее оранжевый при наведении */
+    border-color: #e04112; /* Темнее оранжевая граница при наведении */
+}
+
+button.btn-custom.btn-orange:active {
+    background: #d63a0f; /* Еще темнее оранжевый при нажатии */
+    border-color: #d63a0f; /* Еще темнее оранжевая граница при нажатии */
+    color: white; /* Белый текст при нажатии */
+}
+
 /* Чекбоксы */
 input[type="checkbox"] {
     width: 18px;
@@ -143,6 +161,7 @@ h3 {
 /* -------------------------------------------- */
 /* ФИЛЬТР ДАТ */
 /* -------------------------------------------- 
+
 /* Стили для noUiSlider */
 .noUi-target {
     height: 10px; /* Высота трека */
@@ -212,4 +231,120 @@ h3 {
     border-radius: 5px;
     font-size: 14px;
     text-align: center;
+}
+
+/* ------------------------------------------------------- */
+/* ПОИСК */
+/* ------------------------------------------------------- */
+/* Стили для поискового окна */
+.search-input {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #333;
+    padding: 5px;
+    white-space: nowrap; /* Запрещаем перенос строк */
+    overflow-x: auto; /* Горизонтальная прокрутка */
+    flex: 1; /* Занимает оставшееся пространство */
+}
+
+.search-input:empty::before {
+    content: attr(placeholder); /* Плейсхолдер */
+    color: #B9B9B9;
+}
+
+.search-bar {
+    background-color: #EFEDED;
+    border-radius: 15px;
+    padding: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    transition: height 0.3s ease;
+    overflow: hidden;
+}
+
+.search-bar .input-group {
+    background-color: #EFEDED;
+    border-radius: 15px;
+}
+
+.search-bar .input-group-text {
+    background-color: transparent;
+    border: none;
+    color: #B9B9B9;
+}
+
+.search-bar .form-control {
+    background-color: transparent;
+    border: none;
+    box-shadow: none;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #333;
+}
+
+.search-bar .form-control::placeholder {
+    color: #B9B9B9;
+}
+
+/* Выпадающий список с результатами поиска */
+.dropdown-results {
+    display: none;
+    position: absolute;
+    background-color: white;
+    border: 1px solid #B9B9B9;
+    border-radius: 10px;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    margin-top: 5px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-results .dropdown-item {
+    padding: 10px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-results .dropdown-item:hover {
+    background-color: #F54C16;
+    color: white;
+}
+
+#selected-drugs-container {
+    display: inline;
+}
+
+.selected-drug {
+    display: inline-block;
+    background-color: #F54C16;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.selected-drug.fade-out {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+/* Стиль для выделенного элемента в выпадающем списке */
+.dropdown-item.selected {
+    background-color: #F54C16;
+    color: white;
 }

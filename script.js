@@ -1,6 +1,7 @@
 // ----------------------------------------------
 // Разворачивание списка и кнопка еще 
 // ----------------------------------------------
+
 document.addEventListener('DOMContentLoaded', function () {
     // Логика для сворачивания/разворачивания списков
     const toggleArrows = document.querySelectorAll('.toggle-arrow');
@@ -142,13 +143,8 @@ document.addEventListener('DOMContentLoaded', function () {
 // ------------------------------------------
 // Поиск
 // ------------------------------------------
-
 document.addEventListener('DOMContentLoaded', function () {
-    const searchInput = document.getElementById('search-input');
-    const dropdownResults = document.getElementById('search-results-dropdown');
-    const appliedFiltersList = document.getElementById('applied-filters-list');
-    const resetButton = document.getElementById('reset-button');
-    let drugs = [
+    const drugs = [
         'Авиандр',
         'Алимемазин и синонимы',
         'Андипал',
@@ -160,217 +156,167 @@ document.addEventListener('DOMContentLoaded', function () {
         'Эсциталопрам'
     ];
 
+    const toggleDropdownButton = document.getElementById('toggle-dropdown');
+    const dropdownResults = document.getElementById('search-results-dropdown');
+    const selectedDrugsContainer = document.getElementById('selected-drugs');
+    const searchBar = document.querySelector('.search-bar'); // Добавлено определение searchBar
     let selectedIndex = -1;
 
     // Функция для отображения выпадающего списка
-    function showDropdown(results) {
+    function showDropdown() {
         dropdownResults.innerHTML = '';
-        if (results.length > 0) {
-            results.slice(0, 10).forEach(drug => {
-                const item = document.createElement('div');
-                item.className = 'dropdown-item';
-                item.textContent = drug;
-                item.addEventListener('click', () => selectDrug(drug));
-                dropdownResults.appendChild(item);
-            });
-            dropdownResults.style.display = 'block';
-        } else {
-            dropdownResults.style.display = 'none';
-        }
+        drugs.forEach(drug => {
+            const item = document.createElement('div');
+            item.className = 'dropdown-item';
+            item.textContent = drug;
+            item.addEventListener('click', () => selectDrug(drug));
+            dropdownResults.appendChild(item);
+        });
+        dropdownResults.style.display = 'block';
+    }
+
+    // Функция для скрытия выпадающего списка
+    function hideDropdown() {
+        dropdownResults.style.display = 'none';
     }
 
     // Функция для выбора лекарства
     function selectDrug(drug) {
-        const selectedDrug = document.createElement('span');
-        selectedDrug.className = 'selected-drug';
-        selectedDrug.textContent = drug;
-        selectedDrug.setAttribute('data-drug', drug);
-        selectedDrug.addEventListener('click', () => removeDrug(drug));
-    
-        // Добавляем выбранный фильтр в search-input
-        searchInput.appendChild(selectedDrug);
-    
-        // Добавляем пробел после выбранного лекарства
-        const space = document.createTextNode(' ');
-        searchInput.appendChild(space);
-    
-        // Убираем выбранное лекарство из списка
-        drugs = drugs.filter(d => d !== drug);
-        showDropdown(drugs);
-    
-        // Ставим галочку в соответствующем чекбоксе
-        const checkbox = document.getElementById(drug);
-        if (checkbox) {
-            checkbox.checked = true;
+        // Проверяем, является ли выбранный элемент лекарством
+        if (drugs.includes(drug)) {
+            // Добавляем лекарство в список выбранных
+            const selectedDrug = document.createElement('span');
+            selectedDrug.className = 'selected-drug';
+            selectedDrug.textContent = drug;
+            selectedDrug.addEventListener('click', () => removeDrug(drug));
+            selectedDrugsContainer.appendChild(selectedDrug);
+
+            // Отмечаем соответствующий чекбокс
+            const checkbox = document.getElementById(drug);
+            if (checkbox) {
+                checkbox.checked = true;
+            }
+
+            // Убираем выбранное лекарство из списка
+            const index = drugs.indexOf(drug);
+            if (index !== -1) {
+                drugs.splice(index, 1);
+            }
+
+            // Скрываем выпадающий список
+            hideDropdown();
         }
-    
-        // Перемещаем курсор после пробела
-        const range = document.createRange();
-        const selection = window.getSelection();
-    
-        // Устанавливаем курсор после пробела
-        range.setStartAfter(space);
-        range.collapse(true); // Сворачиваем диапазон до одной точки (курсора)
-    
-        // Очищаем текущие выделения и добавляем новый диапазон
-        selection.removeAllRanges();
-        selection.addRange(range);
-    
-        // Возвращаем фокус в поле поиска
-        searchInput.focus();
-    
-        // Добавляем пустой текстовый узел для нового ввода
-        const emptyTextNode = document.createTextNode('');
-        searchInput.appendChild(emptyTextNode);
-    
-        // Перемещаем курсор в конец (после пустого текстового узла)
-        range.setStart(emptyTextNode, 0);
-        range.collapse(true);
-        selection.removeAllRanges();
-        selection.addRange(range);
     }
 
     // Функция для удаления лекарства
     function removeDrug(drug) {
-        const selectedDrug = document.querySelector(`#search-input [data-drug="${drug}"]`);
+        // Удаляем лекарство из списка выбранных
+        const selectedDrug = Array.from(selectedDrugsContainer.children).find(
+            el => el.textContent === drug
+        );
         if (selectedDrug) {
-            selectedDrug.classList.add('fade-out');
-            selectedDrug.addEventListener('transitionend', () => {
-                selectedDrug.remove();
-            }, { once: true });
+            selectedDrug.remove();
+        }
+
+        // Снимаем отметку с соответствующего чекбокса
+        const checkbox = document.getElementById(drug);
+        if (checkbox) {
+            checkbox.checked = false;
         }
 
         // Возвращаем лекарство в список
         if (!drugs.includes(drug)) {
             drugs.push(drug);
-            drugs.sort(); // Сортируем список для удобства
-        }
-
-        // Убираем галочку в соответствующем чекбоксе
-        const checkbox = document.getElementById(drug);
-        if (checkbox) {
-            checkbox.checked = false;
-        }
-
-        // Обновляем выпадающий список
-        showDropdown(drugs);
-    }
-
-    function navigateDropdown(direction) {
-        const items = dropdownResults.querySelectorAll('.dropdown-item');
-        if (items.length === 0) return;
-    
-        // Снимаем выделение с текущего элемента
-        if (selectedIndex >= 0 && selectedIndex < items.length) {
-            items[selectedIndex].classList.remove('selected');
-        }
-    
-        // Перемещаемся вверх или вниз
-        if (direction === 'ArrowDown' && selectedIndex < items.length - 1) {
-            selectedIndex++;
-        } else if (direction === 'ArrowUp' && selectedIndex > 0) {
-            selectedIndex--;
-        }
-    
-        // Выделяем новый элемент
-        if (selectedIndex >= 0 && selectedIndex < items.length) {
-            items[selectedIndex].classList.add('selected');
-            items[selectedIndex].scrollIntoView({ block: 'nearest' });
+            drugs.sort();
         }
     }
 
-    // Обработка нажатий клавиш
-    searchInput.addEventListener('keydown', (e) => {
+    // Обработчик для кнопки открытия/закрытия выпадающего списка
+    toggleDropdownButton.addEventListener('click', function () {
+        if (dropdownResults.style.display === 'block') {
+            hideDropdown();
+        } else {
+            showDropdown();
+        }
+    });
+
+    // Обработчик для search-bar
+    searchBar.addEventListener('click', function () {
+        if (dropdownResults.style.display === 'block') {
+            hideDropdown();
+        } else {
+            showDropdown();
+        }
+    });
+
+    // Обработчик для перемещения по списку с помощью стрелочек
+    document.addEventListener('keydown', function (e) {
         const items = dropdownResults.querySelectorAll('.dropdown-item');
 
-        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        if (e.key === 'ArrowDown') {
             e.preventDefault();
-            navigateDropdown(e.key);
-        } else if (e.key === 'Enter' && selectedIndex >= 0 && selectedIndex < items.length) {
+            if (selectedIndex < items.length - 1) {
+                selectedIndex++;
+            }
+        } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            if (selectedIndex > 0) {
+                selectedIndex--;
+            }
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
             e.preventDefault();
             items[selectedIndex].click();
         }
-    });
 
-    // Показываем весь список при фокусе на search input
-    searchInput.addEventListener('focus', () => {
-        showDropdown(drugs);
-    });
-
-    // Сбрасываем выделение при закрытии выпадающего списка
-    searchInput.addEventListener('blur', () => {
-        selectedIndex = -1;
-        const items = dropdownResults.querySelectorAll('.dropdown-item');
-        items.forEach(item => item.classList.remove('selected'));
-    });
-
-    // Обработка ввода в поисковую строку
-    searchInput.addEventListener('input', function () {
-        const query = searchInput.textContent.toLowerCase();
-        const filteredDrugs = drugs.filter(drug => drug.toLowerCase().includes(query));
-        showDropdown(filteredDrugs);
-    });
-
-    // Скрытие выпадающего списка при клике вне его
-    document.addEventListener('click', function (e) {
-        if (!searchInput.contains(e.target) && !dropdownResults.contains(e.target)) {
-            dropdownResults.style.display = 'none';
-        }
-    });
-
-    // Обработка выбора чекбоксов справа
-    document.querySelectorAll('.checkbox-group .form-check-input').forEach(checkbox => {
-        checkbox.addEventListener('change', function () {
-            const drug = this.id;
-            if (this.checked) {
-                if (!appliedFiltersList.querySelector(`[data-drug="${drug}"]`)) {
-                    selectDrug(drug);
-                }
+        // Выделяем текущий элемент
+        items.forEach((item, index) => {
+            if (index === selectedIndex) {
+                item.classList.add('selected');
             } else {
-                removeDrug(drug);
+                item.classList.remove('selected');
             }
         });
     });
 
-    // Обработка кнопки "Сбросить все"
-    resetButton.addEventListener('click', function () {
-        // Очищаем выбранные лекарства в поисковой строке
-        searchInput.innerHTML = '';
-        searchInput.textContent = '';
-
-        // Сбрасываем чекбоксы
-        document.querySelectorAll('.checkbox-group .form-check-input').forEach(checkbox => {
-            checkbox.checked = false;
-        });
-
-        // Возвращаем все лекарства в список
-        drugs = [
-            'Авиандр',
-            'Алимемазин и синонимы',
-            'Андипал',
-            'Афобазол',
-            'Баета',
-            'Инозин Пранобекс',
-            'Нейромексол',
-            'Радия-223 хлорид',
-            'Эсциталопрам'
-        ];
-
-        // Обновляем выпадающий список
-        showDropdown(drugs);
-
-        // Скрываем выпадающий список
-        dropdownResults.style.display = 'none';
+    // Скрытие выпадающего списка при клике вне его
+    document.addEventListener('click', function (e) {
+        if (!toggleDropdownButton.contains(e.target) && !dropdownResults.contains(e.target) && !searchBar.contains(e.target)) {
+            hideDropdown();
+        }
     });
 
-    // Синхронизация ширины выпадающего списка с search bar
-    const searchBar = document.querySelector('.search-bar');
+    // Обработчик для чекбоксов
+    document.querySelectorAll('.checkbox-group .form-check-input').forEach(checkbox => {
+        checkbox.addEventListener('change', function () {
+            const drug = this.id;
+    
+            // Проверяем, является ли выбранный элемент лекарством
+            if (drugs.includes(drug)) {
+                if (this.checked) {
+                    // Если чекбокс отмечен, добавляем лекарство
+                    if (!Array.from(selectedDrugsContainer.children).some(el => el.textContent === drug)) {
+                        selectDrug(drug);
+                    }
+                } else {
+                    // Если чекбокс снят, удаляем лекарство
+                    removeDrug(drug);
+                }
+            }
+        });
+    });
+
+    // Функция для обновления ширины выпадающего списка
     function updateDropdownWidth() {
+        const searchBar = document.querySelector('.search-bar');
+        const dropdownResults = document.getElementById('search-results-dropdown');
+
         if (searchBar && dropdownResults) {
             const searchBarWidth = searchBar.offsetWidth;
             dropdownResults.style.width = `${searchBarWidth}px`;
         }
     }
+
+    // Вызов функции при загрузке страницы и изменении размера окна
     updateDropdownWidth();
     window.addEventListener('resize', updateDropdownWidth);
 });

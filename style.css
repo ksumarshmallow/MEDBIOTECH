@@ -321,8 +321,12 @@ h3 {
     color: white;
 }
 
-#selected-drugs-container {
-    display: inline;
+/* Стили для выбранных лекарств */
+#selected-drugs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    padding: 5px;
 }
 
 .selected-drug {

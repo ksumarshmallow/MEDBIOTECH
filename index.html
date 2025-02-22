@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -157,6 +158,25 @@
                             <input type="checkbox" class="form-check-input orange-checkbox" id="nr2">
                             <label class="form-check-label" for="nr2">Заболевания сердца</label>
                         </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input orange-checkbox" id="nr3">
+                            <label class="form-check-label" for="nr3">Заболевания почек</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input orange-checkbox" id="nr4">
+                            <label class="form-check-label" for="nr4">Заболевания нервной системы</label>
+                        </div>
+
+                        <div class="hidden-options" style="display: none;">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input orange-checkbox" id="nr5">
+                                <label class="form-check-label" for="nr5">Аллергические реакции</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input orange-checkbox" id="nr6">
+                                <label class="form-check-label" for="nr6">Прочее</label>
+                            </div>
+                        </div>
 
                         <button type="button" class="btn-show-more">
                             Еще
@@ -184,14 +204,27 @@
                 <div id="search-results-dropdown" class="dropdown-results"></div>
             </div>
 
-            <div id="applied-filters" class="mb-4">
-                <p><strong>Примененные фильтры:</strong></p>
-                <ul id="applied-filters-list"></ul>
-            </div>
-
             <!-- Результаты поиска -->
             <div id="search-results">
                 <p>Загрузка результатов</p>
+                <!-- Блок для статистики -->
+                <div id="results-summary">
+                    <p>Всего отзывов: <span id="total-reviews">0</span></p>
+                    <p>Всего симптомов: <span id="total-symptoms">0</span></p>
+                </div>
+                <!-- Таблица для отзывов -->
+                <table id="reviews-table" class="table">
+                    <thead>
+                        <tr>
+                            <th>Лекарство</th>
+                            <th>Источник</th>
+                            <th>НР</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Строки будут добавляться с помощью JavaScript -->
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

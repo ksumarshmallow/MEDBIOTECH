@@ -82,7 +82,6 @@ export function updateTable(filteredReviews) {
     // Удаляем дубликаты и считаем уникальные симптомы
     const uniqueSymptoms = [...new Set(allSymptoms.map(symptom => symptom.trim()))];
     const totalUniqueSymptoms = uniqueSymptoms.length;
-    console.log(`${uniqueSymptoms}`)
 
     const uniqueSources = [...new Set(filteredReviews.map(review => review.Источник))];
     const totalSources = uniqueSources.length;
@@ -182,27 +181,71 @@ function updateCharts(filteredReviews) {
     const sourcesLabels = Object.keys(sourcesData);
     const sourcesValues = Object.values(sourcesData);
 
-    if (sourcesChartInstance) sourcesChartInstance.destroy();
     const sourcesChartCanvas = document.getElementById('sources-chart').getContext('2d');
-    sourcesChartInstance = new Chart(sourcesChartCanvas, {
-        type: 'pie',
+    const sourcesChartInstance = new Chart(sourcesChartCanvas, {
+        type: 'bar',
         data: {
             labels: sourcesLabels,
             datasets: [{
                 label: 'Количество отзывов',
                 data: sourcesValues,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)'
-                ],
-                borderWidth: 1
+                backgroundColor: '#BAD8E1',
+                borderColor: '#BAD8E1',
+                borderWidth: 0,
+                barPercentage: 0.75,   //  ширина одного бара
+                categoryPercentage: 0.8   // ширина всех
             }]
+        },
+        options: {
+            indexAxis: 'y',
+            responsive: false,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false,
+                },
+                title: {
+                    display: false,
+                    text: 'Источники сбора отзывов'
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    grid: {
+                        display: false
+                    },
+                    border: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#333',
+                        font: {
+                            size: 0,
+                            weight: 'bold'
+                        },
+                        padding: 10
+                    }
+                },
+                y: {
+                    grid: {
+                        display: false
+                    },
+                    border: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#333',
+                        font: {
+                            size: 14,
+                            weight: 'normal'
+                        },
+                        align: 'left',
+                        crossAlign: 'near',
+                        padding: 10
+                    }
+                }
+            }
         }
     });
 
@@ -213,6 +256,8 @@ function updateCharts(filteredReviews) {
     });
     const timelineLabels = Object.keys(timelineData).sort();
     const timelineValues = timelineLabels.map(year => timelineData[year]);
+
+    console.log(`${timelineData}`)
 
     if (timelineChartInstance) timelineChartInstance.destroy();
     const timelineChartCanvas = document.getElementById('timeline-chart').getContext('2d');

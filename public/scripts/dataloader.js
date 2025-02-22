@@ -34,17 +34,34 @@ export function loadCSVData() {
 
 // Фильтрация данных
 export function filterReviews() {
-    const selectedDrugs = Array.from(document.querySelectorAll('.checkbox-group .form-check-input:checked')).map(checkbox => checkbox.id);
-    const selectedSources = Array.from(document.querySelectorAll('.checkbox-group .orange-checkbox:checked')).map(checkbox => checkbox.id);
+    const selectedDrugs = Array.from(
+        document.querySelectorAll('.checkbox-group .form-check-input:checked')
+    ).map(checkbox => checkbox.id);
+
+    const selectedSources = Array.from(
+        document.querySelectorAll('.checkbox-group[data-category="sources"] .orange-checkbox:checked')
+    ).map(checkbox => checkbox.id);
+
+    const selectedCatSymptoms = Array.from(
+        document.querySelectorAll('.checkbox-group[data-category="categories"] .orange-checkbox:checked')
+    ).map(checkbox => checkbox.id);
+
+
     const minYear = parseInt(document.getElementById('input-min').value);
     const maxYear = parseInt(document.getElementById('input-max').value);
 
     const filteredReviews = reviewsData.filter(review => {
         const matchesDrug = selectedDrugs.length === 0 || selectedDrugs.includes(review.Лекарство);
-        const matchesSource = selectedSources.length === 0 || selectedSources.includes(review.Источник);
+        const matchesSource = selectedSources.length === 0 || selectedDrugs.includes(review.Источник);
         const matchesYear = review.Год >= minYear && review.Год <= maxYear;
+        const reviewCatSymptoms = review.НР.split('; ').map(source => source.trim());
+        const matchesCatSymptoms = selectedCatSymptoms.length === 0 || 
+                                  selectedCatSymptoms.some(cat => reviewCatSymptoms.includes(cat));
+        
+        // console.log(`${selectedCatSymptoms}, ${reviewCatSymptoms.some(source => source.includes(selectedCatSymptoms))}`)
+        // console.log(`Отзыв: ${review.Лекарство}, Источник: ${review.Источник}, Год: ${review.Год}, НР: ${reviewCatSymptoms}`);
 
-        return matchesDrug && matchesSource && matchesYear;
+        return matchesDrug && matchesSource && matchesYear && matchesCatSymptoms;
     });
 
     updateTable(filteredReviews);  // Обновляем таблицу с отфильтрованными данными

@@ -345,10 +345,6 @@ function updateCharts(filteredReviews) {
                     ticks: { color: '#B9B9B9', font: { size: 14 }, stepSize: 1},
                     grid: { display: true, color: 'rgba(0, 0, 0, 0.1)' },
                     beginAtZero: true,
-                    // min: -0.1,
-                    // suggestedMin: -0.1,
-                    // max: maxReviews + 1,
-                    // suggestedMax: maxReviews + 1,
                 }
             }
         }

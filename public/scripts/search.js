@@ -69,7 +69,6 @@ export function renderDropdown() {
 export function initializeSearch() {
     const toggleDropdownButton = document.getElementById('toggle-dropdown');
     const dropdownResults = document.getElementById('search-results-dropdown');
-    const selectedDrugsContainer = document.getElementById('selected-drugs');
     const searchBar = document.querySelector('.search-bar');
     const resetButton = document.getElementById('reset-button');
     let selectedIndex = -1;

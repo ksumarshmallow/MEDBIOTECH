@@ -65,7 +65,7 @@ export function createCheckboxGroup(id, label, data, visibleItems = 4) {
 // согласование чекбоксов лекарств с поиском
 function updateSelectedDrugs() {
     const selectedDrugsContainer = document.getElementById('selected-drugs');
-    const checkboxes = document.querySelectorAll('.checkbox-group .form-check-input');
+    const checkboxes = document.querySelectorAll('.checkbox-group#drugs .form-check-input');
 
     selectedDrugsContainer.innerHTML = '';
 

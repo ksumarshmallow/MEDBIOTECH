@@ -14,5 +14,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // start server
 app.listen(port, () => {
-    console.log(`Сервер запущен на http://localhost:${port}`);
+    console.log(`Server started at http://localhost:${port}`);
 });

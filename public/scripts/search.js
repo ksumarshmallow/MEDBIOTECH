@@ -1,10 +1,19 @@
+import { loadData } from './checkboxes.js';
+
+let all_drugs;
+
+async function initializeDrugs() {
+    const data = await loadData();
+    all_drugs = data.drugs;
+    all_drugs.sort();
+}
+
+initializeDrugs();
+
 // Выбор препарата из выпадающего списка
 export function selectDrug(drug) {
     const selectedDrugsContainer = document.getElementById('selected-drugs');
-    const drugs = JSON.parse(sessionStorage.getItem('drugs')) || [
-        'Авиандр', 'Алимемазин и синонимы', 'Андипал', 'Афобазол', 
-        'Баета', 'Инозин Пранобекс', 'Нейромексол', 'Радия-223 хлорид', 'Эсциталопрам'
-    ];
+    const drugs = JSON.parse(sessionStorage.getItem('drugs')) || all_drugs;
 
     if (!drugs.includes(drug)) return;
 
@@ -27,10 +36,7 @@ export function selectDrug(drug) {
 
 export function removeDrug(drug) {
     const selectedDrugsContainer = document.getElementById('selected-drugs');
-    const drugs = JSON.parse(sessionStorage.getItem('drugs')) || [
-        'Авиандр', 'Алимемазин и синонимы', 'Андипал', 'Афобазол', 
-        'Баета', 'Инозин Пранобекс', 'Нейромексол', 'Радия-223 хлорид', 'Эсциталопрам'
-    ];
+    const drugs = JSON.parse(sessionStorage.getItem('drugs')) || all_drugs;
 
     const selectedDrug = [...selectedDrugsContainer.children].find(el => el.textContent === drug);
     if (selectedDrug) selectedDrug.remove();
@@ -48,10 +54,7 @@ export function removeDrug(drug) {
 
 // Функция для рендеринга выпадающего списка
 export function renderDropdown() {
-    const drugs = JSON.parse(sessionStorage.getItem('drugs')) || [
-        'Авиандр', 'Алимемазин и синонимы', 'Андипал', 'Афобазол', 
-        'Баета', 'Инозин Пранобекс', 'Нейромексол', 'Радия-223 хлорид', 'Эсциталопрам'
-    ];
+    const drugs = JSON.parse(sessionStorage.getItem('drugs')) || all_drugs;
 
     const dropdownResults = document.getElementById('search-results-dropdown');
 
@@ -64,7 +67,6 @@ export function renderDropdown() {
 }
 
 export function initializeSearch() {
-    let drugs = ['Авиандр', 'Алимемазин и синонимы', 'Андипал', 'Афобазол', 'Баета', 'Инозин Пранобекс', 'Нейромексол', 'Радия-223 хлорид', 'Эсциталопрам'];
     const toggleDropdownButton = document.getElementById('toggle-dropdown');
     const dropdownResults = document.getElementById('search-results-dropdown');
     const selectedDrugsContainer = document.getElementById('selected-drugs');
@@ -83,12 +85,6 @@ export function initializeSearch() {
         document.querySelectorAll('.checkbox-group .form-check-input').forEach(checkbox => {
             checkbox.checked = false;
         });
-
-        // Перезагрузка списка препаратов
-        drugs = [
-            'Авиандр', 'Алимемазин и синонимы', 'Андипал', 'Афобазол', 
-            'Баета', 'Инозин Пранобекс', 'Нейромексол', 'Радия-223 хлорид', 'Эсциталопрам'
-        ];
         
         updateTable(reviewsData);
         renderDropdown();

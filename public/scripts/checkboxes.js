@@ -1,4 +1,4 @@
-import { selectDrug, removeDrug } from './search.js';
+import { removeDrug } from './search.js';
 
 export async function loadData() {
     const response = await fetch('../data/dataset_description.json');

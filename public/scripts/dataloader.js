@@ -46,10 +46,12 @@ export function filterReviews() {
         document.querySelectorAll('.checkbox-group#categories .form-check-input:checked')
     ).map(checkbox => checkbox.id);
 
-    console.log(selectedDrugs)
-
     const minYear = parseInt(document.getElementById('input-min').value);
     const maxYear = parseInt(document.getElementById('input-max').value);
+
+    console.log(selectedDrugs)
+    console.log(selectedSources)
+    console.log(selectedCatSymptoms)
 
     const filteredReviews = reviewsData.filter(review => {
         const matchesDrug = selectedDrugs.length === 0 || selectedDrugs.includes(review.Лекарство);

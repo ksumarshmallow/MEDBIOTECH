@@ -24,12 +24,12 @@ export function createCheckboxGroup(id, label, data, visibleItems = 4) {
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-        checkbox.id = `${id}-${item}`;
+        checkbox.id = `${item}`;
         checkbox.className = 'form-check-input';
 
         const labelElement = document.createElement('label');
         labelElement.className = 'form-check-label';
-        labelElement.htmlFor = `${id}-${item}`;
+        labelElement.htmlFor = `${item}`;
         labelElement.textContent = item;
 
         formCheck.appendChild(checkbox);

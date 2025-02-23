@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Sample of data in the folder `public/data` - The description of the dataset (drugs, side effects etc) should be described in the file `dataset_description.json` - The example of data review presented in `results.csv`. For each review there drug, source, side effects and their categories should be described.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ksumarshmallow/MEDBIOTECH.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ksumarshmallow/MEDBIOTECH/issues"
+  },
+  "homepage": "https://github.com/ksumarshmallow/MEDBIOTECH#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "papaparse": "^5.5.2"
+  }
+}

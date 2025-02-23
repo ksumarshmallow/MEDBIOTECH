@@ -13,6 +13,6 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // start server
-app.listen(port, () => {
-    console.log(`Server started at http://localhost:${port}`);
+app.listen(port, '0.0.0.0', () => {
+    console.log(`Server started at http://158.160.137.217:${port}`);
 });

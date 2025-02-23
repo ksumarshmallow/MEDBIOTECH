@@ -1,3 +1,68 @@
+// Выбор препарата из выпадающего списка
+export function selectDrug(drug) {
+    const selectedDrugsContainer = document.getElementById('selected-drugs');
+    const drugs = JSON.parse(sessionStorage.getItem('drugs')) || [
+        'Авиандр', 'Алимемазин и синонимы', 'Андипал', 'Афобазол', 
+        'Баета', 'Инозин Пранобекс', 'Нейромексол', 'Радия-223 хлорид', 'Эсциталопрам'
+    ];
+
+    if (!drugs.includes(drug)) return;
+
+     // Добавляем выбранный препарат в список выбранных
+    const selectedDrug = document.createElement('span');
+    selectedDrug.className = 'selected-drug';
+    selectedDrug.textContent = drug;
+    selectedDrug.addEventListener('click', () => removeDrug(drug));
+    selectedDrugsContainer.appendChild(selectedDrug);
+
+    // Синхронизируем с чекбоксом
+    const checkbox = document.getElementById(drug);
+    if (checkbox) checkbox.checked = true;
+
+    // Убираем выбранный препарат из списка доступных
+    const updatedDrugs = drugs.filter(d => d !== drug);
+    sessionStorage.setItem('drugs', JSON.stringify(updatedDrugs));
+    renderDropdown(updatedDrugs);
+}
+
+export function removeDrug(drug) {
+    const selectedDrugsContainer = document.getElementById('selected-drugs');
+    const drugs = JSON.parse(sessionStorage.getItem('drugs')) || [
+        'Авиандр', 'Алимемазин и синонимы', 'Андипал', 'Афобазол', 
+        'Баета', 'Инозин Пранобекс', 'Нейромексол', 'Радия-223 хлорид', 'Эсциталопрам'
+    ];
+
+    const selectedDrug = [...selectedDrugsContainer.children].find(el => el.textContent === drug);
+    if (selectedDrug) selectedDrug.remove();
+
+    const checkbox = document.getElementById(drug);
+    if (checkbox) checkbox.checked = false;
+
+    if (!drugs.includes(drug)) {
+        drugs.push(drug);
+        drugs.sort();
+    }
+    sessionStorage.setItem('drugs', JSON.stringify(drugs));
+    renderDropdown();
+}
+
+// Функция для рендеринга выпадающего списка
+export function renderDropdown() {
+    const drugs = JSON.parse(sessionStorage.getItem('drugs')) || [
+        'Авиандр', 'Алимемазин и синонимы', 'Андипал', 'Афобазол', 
+        'Баета', 'Инозин Пранобекс', 'Нейромексол', 'Радия-223 хлорид', 'Эсциталопрам'
+    ];
+
+    const dropdownResults = document.getElementById('search-results-dropdown');
+
+    dropdownResults.innerHTML = drugs.map(drug =>
+        `<div class="dropdown-item">${drug}</div>`
+    ).join('');
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', () => selectDrug(item.textContent));
+    });
+}
+
 export function initializeSearch() {
     let drugs = ['Авиандр', 'Алимемазин и синонимы', 'Андипал', 'Афобазол', 'Баета', 'Инозин Пранобекс', 'Нейромексол', 'Радия-223 хлорид', 'Эсциталопрам'];
     const toggleDropdownButton = document.getElementById('toggle-dropdown');
@@ -29,55 +94,10 @@ export function initializeSearch() {
         renderDropdown();
     });
 
-    // Функция для рендеринга выпадающего списка
-    function renderDropdown() {
-        dropdownResults.innerHTML = drugs.map(drug =>
-            `<div class="dropdown-item">${drug}</div>`
-        ).join('');
-        document.querySelectorAll('.dropdown-item').forEach(item => {
-            item.addEventListener('click', () => selectDrug(item.textContent));
-        });
-    }
-
     // Функция для переключения отображения выпадающего списка
     function toggleDropdown(show = true) {
         dropdownResults.style.display = show ? 'block' : 'none';
         if (show) renderDropdown();
-    }
-
-    // Выбор препарата из выпадающего списка
-    function selectDrug(drug) {
-        if (!drugs.includes(drug)) return;
-
-         // Добавляем выбранный препарат в список выбранных
-        const selectedDrug = document.createElement('span');
-        selectedDrug.className = 'selected-drug';
-        selectedDrug.textContent = drug;
-        selectedDrug.addEventListener('click', () => removeDrug(drug));
-        selectedDrugsContainer.appendChild(selectedDrug);
-
-        // Синхронизируем с чекбоксом
-        const checkbox = document.getElementById(drug);
-        if (checkbox) checkbox.checked = true;
-
-        // Убираем выбранный препарат из списка доступных
-        drugs = drugs.filter(d => d !== drug);
-        renderDropdown();
-        toggleDropdown(false);
-    }
-
-    function removeDrug(drug) {
-        const selectedDrug = [...selectedDrugsContainer.children].find(el => el.textContent === drug);
-        if (selectedDrug) selectedDrug.remove();
-
-        const checkbox = document.getElementById(drug);
-        if (checkbox) checkbox.checked = false;
-
-        if (!drugs.includes(drug)) {
-            drugs.push(drug);
-            drugs.sort();
-        }
-        renderDropdown();
     }
 
     toggleDropdownButton.addEventListener('click', () => toggleDropdown(dropdownResults.style.display !== 'block'));

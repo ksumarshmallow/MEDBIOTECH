@@ -26,7 +26,6 @@ export function loadCSVData() {
         dynamicTyping: true,
         complete: function(results) {
             reviewsData = results.data;
-            console.log("Data loaded:", reviewsData);
             filterReviews();  // При загрузке данных сразу применяем фильтры
         }
     });
@@ -48,10 +47,6 @@ export function filterReviews() {
 
     const minYear = parseInt(document.getElementById('input-min').value);
     const maxYear = parseInt(document.getElementById('input-max').value);
-
-    console.log(selectedDrugs)
-    console.log(selectedSources)
-    console.log(selectedCatSymptoms)
 
     const filteredReviews = reviewsData.filter(review => {
         const matchesDrug = selectedDrugs.length === 0 || selectedDrugs.includes(review.Лекарство);

@@ -1,3 +1,5 @@
+import { selectDrug, removeDrug } from './search.js';
+
 export async function loadData() {
     const response = await fetch('../data/dataset_description.json');
     return await response.json();
@@ -15,8 +17,6 @@ export function createCheckboxGroup(id, label, data, visibleItems = 4) {
 
     const checkboxContainer = document.createElement('div');
     checkboxContainer.className = 'checkbox-container';
-
-    console.log(container)
 
     data.forEach((item, index) => {
         const formCheck = document.createElement('div');
@@ -62,6 +62,24 @@ export function createCheckboxGroup(id, label, data, visibleItems = 4) {
     return container;
 }
 
+// согласование чекбоксов лекарств с поиском
+function updateSelectedDrugs() {
+    const selectedDrugsContainer = document.getElementById('selected-drugs');
+    const checkboxes = document.querySelectorAll('.checkbox-group .form-check-input');
+
+    selectedDrugsContainer.innerHTML = '';
+
+    checkboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+            const selectedDrug = document.createElement('span');
+            selectedDrug.className = 'selected-drug';
+            selectedDrug.textContent = checkbox.id;
+            selectedDrug.addEventListener('click', () => removeDrug(checkbox.id));
+            selectedDrugsContainer.appendChild(selectedDrug);
+        }
+    });
+}
+
 export async function init() {
     const data = await loadData();
 
@@ -78,4 +96,8 @@ export async function init() {
     filtersContainer.appendChild(drugsGroup);
     filtersContainer.appendChild(sourcesGroup);
     filtersContainer.appendChild(categoriesGroup);
+
+    document.querySelectorAll('.checkbox-group .form-check-input').forEach(checkbox => {
+        checkbox.addEventListener('change', updateSelectedDrugs);
+    });
 }

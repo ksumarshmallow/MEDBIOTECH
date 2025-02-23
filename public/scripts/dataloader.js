@@ -324,8 +324,10 @@ function updateCharts(filteredReviews) {
                     align: 'start',
                     labels: {
                         color: '#333',
-                        boxHeight: 1,
+                        boxHeight: 8,
                         boxWidth: 30,
+                        usePointStyle: true,
+                        pointStyle: 'circle',
                         font: {
                             size: 14
                         },

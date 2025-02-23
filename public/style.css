@@ -497,10 +497,9 @@ h3 {
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 /* III. ИСТОЧНИКИ СБОРА ОТЗЫВОВ */
-#sources-chart {
-    width: 800px !important;
-    height: 400px !important;
-    margin: 2 auto;
+#sources-bar-chart {
+    width: 600px !important;
+    height: 300px !important;
 }
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */

@@ -56,9 +56,6 @@ export function filterReviews() {
         const reviewCatSymptoms = review.НР.split('; ').map(source => source.trim());
         const matchesCatSymptoms = selectedCatSymptoms.length === 0 || 
                                   selectedCatSymptoms.some(cat => reviewCatSymptoms.includes(cat));
-        
-        // console.log(`${selectedCatSymptoms}, ${reviewCatSymptoms.some(source => source.includes(selectedCatSymptoms))}`)
-        // console.log(`Отзыв: ${review.Лекарство}, Источник: ${review.Источник}, Год: ${review.Год}, НР: ${reviewCatSymptoms}`);
 
         return matchesDrug && matchesSource && matchesYear && matchesCatSymptoms;
     });
@@ -181,8 +178,10 @@ function updateCharts(filteredReviews) {
     const sourcesLabels = Object.keys(sourcesData);
     const sourcesValues = Object.values(sourcesData);
 
-    const sourcesChartCanvas = document.getElementById('sources-chart').getContext('2d');
-    const sourcesChartInstance = new Chart(sourcesChartCanvas, {
+    const sourcesChartCanvas = document.getElementById('sources-bar-chart').getContext('2d');
+
+    if (sourcesChartInstance) sourcesChartInstance.destroy();
+    sourcesChartInstance = new Chart(sourcesChartCanvas, {
         type: 'bar',
         data: {
             labels: sourcesLabels,
@@ -198,8 +197,8 @@ function updateCharts(filteredReviews) {
         },
         options: {
             indexAxis: 'y',
-            responsive: false,
-            maintainAspectRatio: false,
+            responsive: true,
+            maintainAspectRatio: true,
             plugins: {
                 legend: {
                     display: false,
@@ -237,7 +236,7 @@ function updateCharts(filteredReviews) {
                     ticks: {
                         color: '#333',
                         font: {
-                            size: 14,
+                            size: 16,
                             weight: 'normal'
                         },
                         align: 'left',
@@ -251,32 +250,106 @@ function updateCharts(filteredReviews) {
 
     // 4. Отзывы по шкале времени
     const timelineData = {};
-    filteredReviews.forEach(review => {
-        timelineData[review.Год] = (timelineData[review.Год] || 0) + 1;
-    });
-    const timelineLabels = Object.keys(timelineData).sort();
-    const timelineValues = timelineLabels.map(year => timelineData[year]);
 
-    console.log(`${timelineData}`)
+    //  группировка по лекарствам и годам
+    filteredReviews.forEach(review => {
+        if (!timelineData[review.Лекарство]) {
+            timelineData[review.Лекарство] = {};
+        }
+        timelineData[review.Лекарство][review.Год] = 
+            (timelineData[review.Лекарство][review.Год] || 0) + 1;
+    });
+    
+    const timelineLabels = [...new Set(filteredReviews.map(r => r.Год))].sort();
+
+    let maxReviews = 0;
+    Object.keys(timelineData).forEach(drug => {
+        Object.values(timelineData[drug]).forEach(reviews => {
+            if (reviews > maxReviews) {
+                maxReviews = reviews;
+            }
+        });
+    });
+
+    // для каждого лекарства свой датасет
+    function generateMultiGradientColors(colors, count) {
+        if (count <= colors.length) {
+            return colors.slice(0, count); // Если лекарств мало, берем готовые цвета
+        }
+    
+        const resultColors = [];
+        for (let i = 0; i < count; i++) {
+            const ratio = i / (count - 1);
+            const index = Math.floor(ratio * (colors.length - 1)); // Находим, между какими цветами интерполировать
+            const nextIndex = Math.min(index + 1, colors.length - 1);
+            
+            const start = colors[index].match(/\w\w/g).map(c => parseInt(c, 16));
+            const end = colors[nextIndex].match(/\w\w/g).map(c => parseInt(c, 16));
+    
+            const color = start.map((c, j) => Math.round(c + (end[j] - c) * (ratio * (colors.length - 1) - index)));
+            resultColors.push(`#${color.map(c => c.toString(16).padStart(2, '0')).join('')}`);
+        }
+        return resultColors;
+    }
+    
+    // const baseColors = ['#BAD8E1', '#BAC0E1', '#E1BACD', '#D6E1BA', '#DCDCDC', '#F54C19'];
+    const baseColors = ['#78C2E1', '#7898E1', '#E178B3', '#B7E178', '#E1E178', '#F54C19'];
+    
+    const drugNames = Object.keys(timelineData);
+    const drugColors = generateMultiGradientColors(baseColors, drugNames.length);    
+
+    const datasets = drugNames.map((drug, index) => ({
+        label: drug,
+        data: timelineLabels.map(year => timelineData[drug][year] || 0),
+        borderColor: drugColors[index] || '#9966FF',
+        backgroundColor: drugColors[index] || '#9966FF',
+        borderWidth: 2,
+        pointRadius: 0,
+        tension: 0.4
+    }));
 
     if (timelineChartInstance) timelineChartInstance.destroy();
     const timelineChartCanvas = document.getElementById('timeline-chart').getContext('2d');
+
     timelineChartInstance = new Chart(timelineChartCanvas, {
         type: 'line',
         data: {
             labels: timelineLabels,
-            datasets: [{
-                label: 'Количество отзывов',
-                data: timelineValues,
-                backgroundColor: 'rgba(153, 102, 255, 0.2)',
-                borderColor: 'rgba(153, 102, 255, 1)',
-                borderWidth: 1
-            }]
+            datasets: datasets
         },
         options: {
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    align: 'start',
+                    labels: {
+                        color: '#333',
+                        boxHeight: 1,
+                        boxWidth: 30,
+                        font: {
+                            size: 14
+                        },
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    intersect: false
+                },
+            },
             scales: {
+                x: {
+                    ticks: { color: '#B9B9B9', font: { size: 14 } },
+                    grid: { display: false }
+                },
                 y: {
-                    beginAtZero: true
+                    ticks: { color: '#B9B9B9', font: { size: 14 }, stepSize: 1},
+                    grid: { display: true, color: 'rgba(0, 0, 0, 0.1)' },
+                    beginAtZero: true,
+                    // min: -0.1,
+                    // suggestedMin: -0.1,
+                    // max: maxReviews + 1,
+                    // suggestedMax: maxReviews + 1,
                 }
             }
         }

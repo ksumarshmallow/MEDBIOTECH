@@ -7,7 +7,10 @@ header, .filters-container {
     margin-bottom: 20px;
 }
 
+/* ------------------------------------- */
 /* Заголовки */
+/* ------------------------------------- */
+
 h2 {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
@@ -24,7 +27,9 @@ h3 {
     margin-bottom: 10px;
 }
 
+/* ------------------------------------- */
 /* Кнопки */
+/* ------------------------------------- */
 button.btn-custom {
     width: 140px;
     height: 30px;
@@ -60,23 +65,28 @@ button.btn-custom:focus {
 
 /* Стили для оранжевой кнопки */
 button.btn-custom.btn-orange {
-    background: #F54C16; /* Оранжевый фон */
-    border-color: #F54C16; /* Оранжевая граница */
-    color: white; /* Белый текст */
+    background: #F54C16;
+    border-color: #F54C16;
+    color: white;
 }
 
+/* при наведении */
 button.btn-custom.btn-orange:hover {
-    background: #e04112; /* Темнее оранжевый при наведении */
-    border-color: #e04112; /* Темнее оранжевая граница при наведении */
+    background: #e04112;
+    border-color: #e04112;
 }
 
+/* при нажатии */
 button.btn-custom.btn-orange:active {
-    background: #d63a0f; /* Еще темнее оранжевый при нажатии */
-    border-color: #d63a0f; /* Еще темнее оранжевая граница при нажатии */
-    color: white; /* Белый текст при нажатии */
+    background: #d63a0f;
+    border-color: #d63a0f;
+    color: white;
 }
 
+/* ------------------------------------- */
 /* Чекбоксы */
+/* ------------------------------------- */
+
 input[type="checkbox"] {
     width: 18px;
     height: 18px;
@@ -501,9 +511,3 @@ h3 {
     width: 600px !important;
     height: 300px !important;
 }
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* I. ОБЩИЕ СВЕДЕНИЯ */
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-/* I. ОБЩИЕ СВЕДЕНИЯ */

@@ -87,9 +87,18 @@ export function initializeSearch() {
         if (!items.length) return;
         
         if (['ArrowDown', 'ArrowUp', 'Enter'].includes(e.key)) e.preventDefault();
-        if (e.key === 'ArrowDown' && selectedIndex < items.length - 1) selectedIndex++;
-        if (e.key === 'ArrowUp' && selectedIndex > 0) selectedIndex--;
-        if (e.key === 'Enter' && selectedIndex >= 0) items[selectedIndex].click();
+        
+        if (e.key === 'ArrowDown' && selectedIndex < items.length - 1) {
+            selectedIndex++;
+        } else if (e.key === 'ArrowUp' && selectedIndex > 0) {
+            selectedIndex--;
+        } else if (e.key === 'Enter' && selectedIndex >= 0) {
+            items[selectedIndex].click();
+        }
+
+        if (selectedIndex >= 0) {
+            items[selectedIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
 
         items.forEach((item, index) => item.classList.toggle('selected', index === selectedIndex));
     });

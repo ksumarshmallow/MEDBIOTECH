@@ -29,9 +29,8 @@
             <div class="filters-container">
                 <h2>Фильтры</h2>
                 <form>
-                    <button type="button" class="btn btn-custom  btn-orange" id="apply-button">Применить</button>
+                    <button type="button" class="btn btn-custom btn-orange" id="apply-button">Применить</button>
                     <button type="reset" class="btn btn-custom" id="reset-button">Сбросить все</button>
-
                     <!-- Date filter -->
                     <h3 class="mt-4 d-flex justify-content-between align-items-center">
                         Дата отзывов
@@ -43,139 +42,6 @@
                             <input type="number" id="input-max" class="date-input" min="2000" max="2025" value="2025">
                         </div>
                         <div id="range-slider"></div>
-                    </div>       
-
-                    <!-- Drugs -->
-                    <h3 class="mt-4 d-flex justify-content-between align-items-center">
-                        Лекарственный препарат
-                        <span class="toggle-arrow"><i class="fas fa-chevron-down"></i></span>
-                    </h3>
-                    <div class="checkbox-group">
-                        <div class="form-check">
-                            <input type="checkbox" id="Авиандр" class="form-check-input">
-                            <label class="form-check-label" for="Авиандр">Авиандр</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" id="Алимемазин и синонимы" class="form-check-input">
-                            <label class="form-check-label" for="Алимемазин и синонимы">Алимемазин и синонимы</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" id="Андипал" class="form-check-input">
-                            <label class="form-check-label" for="Андипал">Андипал</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" id="Афобазол" class="form-check-input">
-                            <label class="form-check-label" for="Афобазол">Афобазол</label>
-                        </div>
-                                            
-                        <div class="hidden-options" style="display: none;">
-                            
-                            <div class="form-check">
-                                <input type="checkbox" id="Баета" class="form-check-input">
-                                <label class="form-check-label" for="Баета">Баета</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" id="Инозин Пранобекс" class="form-check-input">
-                                <label class="form-check-label" for="Инозин Пранобекс">Инозин Пранобекс</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" id="Нейромексол" class="form-check-input">
-                                <label class="form-check-label" for="Нейромексол">Нейромексол </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" id="Радия-223 хлорид" class="form-check-input">
-                                <label class="form-check-label" for="Радия-223 хлорид">Радия-223 хлорид</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" id="Эсциталопрам" class="form-check-input">
-                                <label class="form-check-label" for="Эсциталопрам">Эсциталопрам</label>
-                            </div>
-                        </div>
-                    
-                        <button type="button" class="btn-show-more">
-                            Еще
-                        </button>
-                    </div>
-
-                    <!-- Resource -->
-                    <h3 class="mt-4 d-flex justify-content-between align-items-center">
-                        Источник
-                        <span class="toggle-arrow"><i class="fas fa-chevron-down"></i></span>
-                    </h3>
-                    <div class="checkbox-group" data-category="sources">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input orange-checkbox" id="Отзовик">
-                            <label class="form-check-label" for="Отзовик">Отзовик</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input orange-checkbox" id="ВК">
-                            <label class="form-check-label" for="ВК">ВК</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input orange-checkbox" id="YouTube">
-                            <label class="form-check-label" for="YouTube">YouTube</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" id="Какой-то форум" class="form-check-input orange-checkbox">
-                            <label class="form-check-label" for="Какой-то форум">Какой-то форум</label>
-                        </div>
-
-                        <div class="hidden-options" style="display: none;">
-                            <div class="form-check">
-                                <input type="checkbox" id="1000 рецептов" class="form-check-input orange-checkbox">
-                                <label class="form-check-label" for="1000 рецептов">1000 рецептов</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" id="4ch" class="form-check-input orange-checkbox">
-                                <label class="form-check-label" for="4ch">4ch</label>
-                            </div>
-                            <div class="form-check">
-                                <input type="checkbox" id="Москва сегодня" class="form-check-input orange-checkbox">
-                                <label class="form-check-label" for="Москва сегодня">Москва сегодня</label>
-                            </div>
-                        </div>
-
-                        <button type="button" class="btn-show-more">
-                            Еще
-                        </button>
-
-                    </div>
-
-                    <!-- Categories of reactions -->
-                    <h3 class="mt-4 d-flex justify-content-between align-items-center">
-                        Категории нежелательных реакций
-                        <span class="toggle-arrow"><i class="fas fa-chevron-down"></i></span>
-                    </h3>
-                     
-                    <div class="checkbox-group" data-category="categories">
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input orange-checkbox" id="Заболевания сердца">
-                            <label class="form-check-label" for="Заболевания сердца">Заболевания сердца</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input orange-checkbox" id="Заболевания почек">
-                            <label class="form-check-label" for="Заболевания почек">Заболевания почек</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input orange-checkbox" id="Заболевания нервной системы">
-                            <label class="form-check-label" for="Заболевания нервной системы">Заболевания нервной системы</label>
-                        </div>
-                        <div class="form-check">
-                            <input type="checkbox" class="form-check-input orange-checkbox" id="Аллергические реакции">
-                            <label class="form-check-label" for="Аллергические реакции">Аллергические реакции</label>
-                        </div>
-
-                        <div class="hidden-options" style="display: none;">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input orange-checkbox" id="Прочее">
-                                <label class="form-check-label" for="Прочее">Прочее</label>
-                            </div>
-                        </div>
-
-                        <button type="button" class="btn-show-more">
-                            Еще
-                        </button>
-                    
                     </div>
                 </form>
             </div>

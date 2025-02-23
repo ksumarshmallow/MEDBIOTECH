@@ -3,6 +3,7 @@ import { showMoreButton } from './scripts/showMore.js';
 import { initializeRangeSlider } from './scripts/rangeSlider.js';
 import { initializeSearch } from './scripts/search.js';
 import { loadCSVData, filterReviews, resetFilters } from './scripts/dataloader.js';
+import { init as initFilters } from './scripts/checkboxes.js'; 
 
 document.addEventListener('DOMContentLoaded', function () {
     loadCSVData();
@@ -10,6 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
     showMoreButton();
     initializeRangeSlider();
     initializeSearch();
+    initFilters();
 
     document.getElementById('apply-button').addEventListener('click', filterReviews);
 

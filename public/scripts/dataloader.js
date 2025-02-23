@@ -35,16 +35,18 @@ export function loadCSVData() {
 // Фильтрация данных
 export function filterReviews() {
     const selectedDrugs = Array.from(
-        document.querySelectorAll('.checkbox-group .form-check-input:checked')
+        document.querySelectorAll('.checkbox-group#drugs .form-check-input:checked')
     ).map(checkbox => checkbox.id);
 
     const selectedSources = Array.from(
-        document.querySelectorAll('.checkbox-group[data-category="sources"] .orange-checkbox:checked')
+        document.querySelectorAll('.checkbox-group#resources .form-check-input:checked')
     ).map(checkbox => checkbox.id);
 
     const selectedCatSymptoms = Array.from(
-        document.querySelectorAll('.checkbox-group[data-category="categories"] .orange-checkbox:checked')
+        document.querySelectorAll('.checkbox-group#categories .form-check-input:checked')
     ).map(checkbox => checkbox.id);
+
+    console.log(selectedDrugs)
 
     const minYear = parseInt(document.getElementById('input-min').value);
     const maxYear = parseInt(document.getElementById('input-max').value);

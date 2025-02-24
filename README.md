@@ -41,5 +41,5 @@ For youtube reveiws search use command:
 
 Example within this repo:
 ```bash
-    python parser.py  --config config.yaml --drugs parser/data/drugs.json --output parser/data/youtube_results.csv
+    python parser.py  --config config.yaml --drugs public/data/drugs.json --output public/data/youtube_results.csv
 ```

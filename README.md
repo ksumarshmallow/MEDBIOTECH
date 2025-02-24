@@ -6,19 +6,19 @@ Sample of data in the folder `public/data`
 1. Initialize project
 
 ```bash
-    npm init -y
+npm init -y
 ```
 
 2. Install dependencies
 
 ```bash
-    npm install express papaparse cors
+npm install express papaparse cors
 ```
 
 3. Start server
 
 ```bash
-    npm start
+npm start
 ```
 
 # Parser YouTube
